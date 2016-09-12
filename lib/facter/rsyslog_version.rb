@@ -25,6 +25,10 @@ Facter.add(:rsyslog_version) do
       command = 'equery -q -C list -F \'$version\' rsyslog'
       version = Facter::Util::Resolution.exec(command)
       Regexp.last_match(1) if version =~ %r{^(.+)$}
+    when 'Archlinux'
+      command = 'pacman -Q "rsyslog"'
+      version = Facter::Util::Resolution.exec(command)
+      Regexp.last_match(1) if version =~ %r{^rsyslog (.+)$}
     end
   end
 end
